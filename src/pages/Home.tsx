@@ -1,4 +1,4 @@
-import {Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography} from "@mui/material";
+import {Box, Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography} from "@mui/material";
 import Header from "../component/Header.tsx";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
@@ -62,52 +62,65 @@ const CURSOS = [
 ];
 export default function Home() {
     return (
-<>
+        <>
 
-    <Header nombreUsuario={PERFILES.nombreUsuario} iniciales={PERFILES.iniciales} estado={PERFILES.estado} notificaciones={PERFILES.notificaciones} />
-        <Container sx={{py: 4}}>
-            <Grid container spacing={3}>
-                {CURSOS.map((curso) => (
+            <Header nombreUsuario={PERFILES.nombreUsuario} iniciales={PERFILES.iniciales} estado={PERFILES.estado}
+                    notificaciones={PERFILES.notificaciones}/>
 
-                    <Card sx={{maxWidth: 345, borderRadius: 3}} >
-                        <CardMedia
-                            sx={{height: 140}}
-                            image={curso.image}
-                            title={curso.title}
-                        />
-                        <CardContent>
-                            <h2>{curso.title}</h2>
-                            <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                                {curso.descripcion}
-                            </Typography>
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                <h3>Bienvenido a la pagina principal</h3>
 
-                            {curso.visitas && (
-                                <Typography
-                                    variant="caption"
-                                    sx={{
-                                        display: 'flex',      // Alinea icono y texto en la misma línea
-                                        alignItems: 'center', // Centra verticalmente el ojo con el número
-                                        gap: 0.5,             // Espacio mínimo entre ojo y número
-                                        ml: -0.5,             // EL TRUCO: Margen negativo para pegar el ojo al borde izquierdo
-                                        mt: 2,                // Espacio respecto a la descripción
-                                        fontWeight: 'bold'
-                                    }}
-                                >
-                                    <RemoveRedEyeIcon sx={{ fontSize: 18 }} />
-                                    {curso.visitas}
+                <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 2 }}>
+                    <span>EXPLORA NUESTROS CURSOS</span>
+                    <Button variant="contained" disableElevation>
+                        Disable elevation
+                    </Button>
+                </Box>
+            </div>
+
+            <Container maxWidth={false} sx={{py: 4}}>
+                <Grid container spacing={3} sx={{width: '100%', margin: 2}}>
+                    {CURSOS.map((curso) => (
+
+                        <Card sx={{maxWidth: 345, borderRadius: 3}}>
+                            <CardMedia
+                                sx={{height: 140}}
+                                image={curso.image}
+                                title={curso.title}
+                            />
+                            <CardContent>
+                                <h2>{curso.title}</h2>
+                                <Typography variant="body2" sx={{color: 'text.secondary'}}>
+                                    {curso.descripcion}
                                 </Typography>
-                            )}
 
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Compartir</Button>
-                            <Button size="small">Leer mas</Button>
-                        </CardActions>
-                    </Card>
+                                {curso.visitas && (
+                                    <Typography
+                                        variant="caption"
+                                        sx={{
+                                            display: 'flex',      // Usamos flexbox para alinear el ojo y el número
+                                            alignItems: 'center', // Centra verticalmente el ojo con el número
+                                            gap: 0.5,             // Espacio mínimo entre ojo y número
+                                            ml: -0.5,             // EL TRUCO: Margen negativo para pegar el ojo al borde izquierdo
+                                            mt: 2,                // Espacio respecto a la descripción
+                                            fontWeight: 'bold'
+                                        }}
+                                    >
+                                        <RemoveRedEyeIcon sx={{fontSize: 18}}/>
+                                        {curso.visitas}
+                                    </Typography>
+                                )}
 
-                ))}
-            </Grid>
-        </Container>
-</>
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small">Compartir</Button>
+                                <Button size="small">Leer mas</Button>
+                            </CardActions>
+                        </Card>
+
+                    ))}
+                </Grid>
+            </Container>
+        </>
     );
 }
