@@ -4,10 +4,20 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import HttpsIcon from '@mui/icons-material/Https';
-import {Box, colors, TextField} from "@mui/material";
+import {Box, colors, FormControlLabel, FormGroup, Switch, TextField} from "@mui/material";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 
 export default function Login() {
+
+    const [email, setEmail] = useState('');
+    const navigate = useNavigate();
+
+    const handleLogin = () => {
+        navigate('/home', { state: { correo: email } });    }
+
+
     return (
         <>
 
@@ -18,14 +28,19 @@ export default function Login() {
                 minHeight: '100vh',       // Ocupa el 100% de la altura de la pantalla
             }}>
 
-                <Card sx={{minWidth: 275, maxWidth: 150, borderRadius: 3, boxShadow: 3, padding: 2, color: 'azure'}}>
-                    <CardContent>
-                        <HttpsIcon color="primary" sx={{fontSize: 40}}/>
-                        <Typography gutterBottom sx={{color: 'text.secondary', fontSize: 14}}>
+                <Card sx={{minWidth: 275, maxWidth: 150, borderRadius: 3, boxShadow: 3, padding: 0, color: 'azure'}}>
+                    <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                        <HttpsIcon color="primary" sx={{fontSize: 40 , backgroundColor: "cadetblue" , padding: "10px" , borderRadius: "50%"}} />
+                        <Typography gutterBottom sx={{color: 'text.secondary'}}>
                             Welcome Back
                         </Typography>
-                        <Typography variant="h5" component="div" color={colors.indigo[900]}>
-                            <h4> Sign in to your account to continue</h4>
+                        <Typography variant="h6"
+                                    component="div"
+                                    sx={{
+                                        textAlign: 'center',
+                                        color: colors.indigo[900]
+                                    }}>
+                            <h6 > Sign in to your account to continue</h6>
 
                         </Typography>
 
@@ -36,6 +51,8 @@ export default function Login() {
                                 label="Email"
                                 margin="normal"
                                 variant="outlined"
+                                onChange={(e) => setEmail(e.target.value)}
+                                type="email"
                             />
                             <TextField
                                 fullWidth
@@ -43,13 +60,23 @@ export default function Login() {
                                 margin="normal"
                                 variant="outlined"
                                 type="password"
+
                             />
+
+                            <FormGroup>
+                                <FormControlLabel required control={<Switch />} label="Remember me" slotProps={{
+                                    typography: { sx: { color: 'black' } }
+                                }}  />
+                            </FormGroup>
 
                         </Typography>
 
                     </CardContent>
                     <CardActions>
-                        <Button size="small">Learn More</Button>
+                        <Button variant="contained" disableElevation
+                        onClick={handleLogin}>
+                            Sign In
+                        </Button>
                     </CardActions>
                 </Card>
             </Box>

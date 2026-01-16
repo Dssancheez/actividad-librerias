@@ -1,13 +1,21 @@
-import {Box, Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography} from "@mui/material";
+import {
+    Box,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia, Chip,
+    Container,
+    Grid,
+    Stack,
+    Typography
+} from "@mui/material";
+import AddchartIcon from '@mui/icons-material/Addchart';
 import Header from "../component/Header.tsx";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import {useLocation} from "react-router-dom";
 
-const PERFILES = {
-    nombreUsuario: "Juan Perez",
-    iniciales: "JP",
-    estado: 'cerrar sesion',
-    notificaciones: 5
-};
+
 
 
 const CURSOS = [
@@ -61,65 +69,85 @@ const CURSOS = [
 
 ];
 export default function Home() {
+
+    const location = useLocation();
+
+    const emailRecibido = location.state?.correo || "invitado@correo.com";
+    const iniciales = emailRecibido.substring(0, 2).toUpperCase();
+
+
     return (
         <>
 
-            <Header nombreUsuario={PERFILES.nombreUsuario} iniciales={PERFILES.iniciales} estado={PERFILES.estado}
-                    notificaciones={PERFILES.notificaciones}/>
+            <Header nombreUsuario={emailRecibido} iniciales={iniciales} estado="cerrar sesión"
+                    notificaciones={5}/>
+            <Container maxWidth="xl" sx={{ mt: 4 }}>
+                <div style={{textAlign: 'center', marginTop: '20px'}}>
+                    <h3>Bienvenido a la pagina principal</h3>
 
-            <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                <h3>Bienvenido a la pagina principal</h3>
+                    <Box sx={{display: 'inline-flex', alignItems: 'center', gap: 2}}>
+                        <span>EXPLORA NUESTROS CURSOS</span>
+                        <Button variant="contained" disableElevation>
+                            Disable elevation
+                        </Button>
+                    </Box>
 
-                <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 2 }}>
-                    <span>EXPLORA NUESTROS CURSOS</span>
-                    <Button variant="contained" disableElevation>
-                        Disable elevation
-                    </Button>
-                </Box>
-            </div>
+                    <Stack direction="row" spacing={1} display="flex" justifyContent="center"
+                           sx={{marginTop: 2, gap: 1, flexWrap: 'wrap', padding: 3}}>
+                        <Chip label=" Todos" variant="outlined" color="primary"/>
+                        <Chip label="Programacion" color="secondary"/>
+                        <Chip label="Programacion" color="secondary"/>
+                        <Chip label="Programacion" color="secondary"/>
+                        <Chip label="Programacion" color="secondary"/>
 
-            <Container maxWidth={false} sx={{py: 4}}>
-                <Grid container spacing={3} sx={{width: '100%', margin: 2}}>
-                    {CURSOS.map((curso) => (
+                    </Stack>
+                </div>
 
-                        <Card sx={{maxWidth: 345, borderRadius: 3}}>
-                            <CardMedia
-                                sx={{height: 140}}
-                                image={curso.image}
-                                title={curso.title}
-                            />
-                            <CardContent>
-                                <h2>{curso.title}</h2>
-                                <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                                    {curso.descripcion}
-                                </Typography>
+                <Container  sx={{py: 4}}>
+                    <Grid container spacing={3} sx={{width: '100%', margin: 2}}>
+                        {CURSOS.map((curso) => (
 
-                                {curso.visitas && (
-                                    <Typography
-                                        variant="caption"
-                                        sx={{
-                                            display: 'flex',      // Usamos flexbox para alinear el ojo y el número
-                                            alignItems: 'center', // Centra verticalmente el ojo con el número
-                                            gap: 0.5,             // Espacio mínimo entre ojo y número
-                                            ml: -0.5,             // EL TRUCO: Margen negativo para pegar el ojo al borde izquierdo
-                                            mt: 2,                // Espacio respecto a la descripción
-                                            fontWeight: 'bold'
-                                        }}
-                                    >
-                                        <RemoveRedEyeIcon sx={{fontSize: 18}}/>
-                                        {curso.visitas}
+                            <Card sx={{maxWidth: 345, borderRadius: 3}}>
+                                <CardMedia
+                                    sx={{height: 140}}
+                                    image={curso.image}
+                                    title={curso.title}
+                                />
+                                <CardContent>
+                                    <h2>{curso.title}</h2>
+                                    <Typography variant="body2" sx={{color: 'text.secondary'}}>
+                                        {curso.descripcion}
                                     </Typography>
-                                )}
 
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">Compartir</Button>
-                                <Button size="small">Leer mas</Button>
-                            </CardActions>
-                        </Card>
+                                    {curso.visitas && (
+                                        <Typography
+                                            variant="caption"
+                                            sx={{
+                                                display: 'flex',      // Usamos flexbox para alinear el ojo y el número
+                                                alignItems: 'center', // Centra verticalmente el ojo con el número
+                                                gap: 0.5,             // Espacio mínimo entre ojo y número
+                                                ml: -0.5,             // EL TRUCO: Margen negativo para pegar el ojo al borde izquierdo
+                                                mt: 2,                // Espacio respecto a la descripción
+                                                fontWeight: 'bold'
+                                            }}
+                                        >
+                                            <RemoveRedEyeIcon sx={{fontSize: 18}}/>
+                                            {curso.visitas}
+                                        </Typography>
+                                    )}
 
-                    ))}
-                </Grid>
+                                </CardContent>
+                                <CardActions sx={{justifyContent: 'center'}}>
+                                    <Button variant="contained" disableElevation >
+                                        <AddchartIcon sx={{mr: 1}}/>
+                                        Ver estadisticas
+                                    </Button>
+                                </CardActions>
+                            </Card>
+
+                        ))}
+                    </Grid>
+                </Container>
             </Container>
         </>
     );
