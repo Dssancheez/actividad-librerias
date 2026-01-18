@@ -25,7 +25,6 @@ export default function Header({ nombreUsuario, iniciales, estado, notificacione
         >
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', px: 2 }}>
 
-                {/* LADO IZQUIERDO: Logo */}
                 <Box
                     component={Link}
                     to="/"
@@ -46,13 +45,13 @@ export default function Header({ nombreUsuario, iniciales, estado, notificacione
                 </Box>
 
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2 }}>
-                    <Button component={Link} to="/artists" sx={{ color: '#3949ab', textTransform: 'none' }}>
+                    <Button component={Link} to="#" sx={{ color: '#3949ab', textTransform: 'none' }}>
                         Artistas
                     </Button>
-                    <Button component={Link} to="/explore" sx={{ color: '#3949ab', textTransform: 'none' }}>
+                    <Button component={Link} to="#" sx={{ color: '#3949ab', textTransform: 'none' }}>
                         Explore
                     </Button>
-                    <Button component={Link} to="/about" sx={{ color: '#3949ab', textTransform: 'none' }}>
+                    <Button component={Link} to="#" sx={{ color: '#3949ab', textTransform: 'none' }}>
                         About
                     </Button>
                 </Box>

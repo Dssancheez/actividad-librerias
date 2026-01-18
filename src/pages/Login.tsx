@@ -6,80 +6,79 @@ import Typography from '@mui/material/Typography';
 import HttpsIcon from '@mui/icons-material/Https';
 import {Box, colors, FormControlLabel, FormGroup, Switch, TextField} from "@mui/material";
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Form, useNavigate} from "react-router-dom";
 
 
 export default function Login() {
-
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = () => {
-        navigate('/home', { state: { correo: email } });    }
-
+    const handleLogin = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (email) {
+            navigate('/home', { state: { correo: email } });
+        }
+    }
 
     return (
-        <>
-
-            <Box sx={{
-                display: 'flex',
-                justifyContent: 'center', // Centra horizontalmente
-                alignItems: 'center',     // Centra verticalmente
-                minHeight: '100vh',       // Ocupa el 100% de la altura de la pantalla
-            }}>
-
-                <Card sx={{minWidth: 275, maxWidth: 150, borderRadius: 3, boxShadow: 3, padding: 0, color: 'azure'}}>
+        <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '100vh',
+        }}>
+            <Card sx={{ minWidth: 275, maxWidth: 400, borderRadius: 3, boxShadow: 3 }}>
+                <Form onSubmit={handleLogin}>
                     <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-                        <HttpsIcon color="primary" sx={{fontSize: 40 , backgroundColor: "cadetblue" , padding: "10px" , borderRadius: "50%"}} />
-                        <Typography gutterBottom sx={{color: 'text.secondary'}}>
+                        <HttpsIcon color="primary" sx={{ fontSize: 40, backgroundColor: "cadetblue", padding: "10px", borderRadius: "50%" }} />
+
+                        <Typography gutterBottom sx={{ color: 'text.secondary' }}>
                             Welcome Back
                         </Typography>
-                        <Typography variant="h6"
-                                    component="div"
-                                    sx={{
-                                        textAlign: 'center',
-                                        color: colors.indigo[900]
-                                    }}>
-                            <h6 > Sign in to your account to continue</h6>
 
+                        <Typography variant="h6" component="h2" sx={{ textAlign: 'center', color: colors.indigo[900] }}>
+                            Sign in to your account to continue
                         </Typography>
 
-                        <Typography>
+                        <TextField
+                            fullWidth
+                            label="Email"
+                            margin="normal"
+                            variant="outlined"
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="email"
+                            required
+                        />
+                        <TextField
+                            fullWidth
+                            label="Password"
+                            margin="normal"
+                            variant="outlined"
+                            type="password"
+                            required
+                        />
 
-                            <TextField
-                                fullWidth
-                                label="Email"
-                                margin="normal"
-                                variant="outlined"
-                                onChange={(e) => setEmail(e.target.value)}
-                                type="email"
+                        <FormGroup sx={{ width: '100%' }}>
+                            <FormControlLabel
+                                control={<Switch />}
+                                label="Remember me"
+                                slotProps={{ typography: { sx: { color: 'black' } } }}
                             />
-                            <TextField
-                                fullWidth
-                                label="Password"
-                                margin="normal"
-                                variant="outlined"
-                                type="password"
-
-                            />
-
-                            <FormGroup>
-                                <FormControlLabel required control={<Switch />} label="Remember me" slotProps={{
-                                    typography: { sx: { color: 'black' } }
-                                }}  />
-                            </FormGroup>
-
-                        </Typography>
-
+                        </FormGroup>
                     </CardContent>
-                    <CardActions>
-                        <Button variant="contained" disableElevation
-                        onClick={handleLogin}>
+
+                    <CardActions sx={{ justifyContent: 'center', pb: 2 }}>
+                        <Button
+                            variant="contained"
+                            fullWidth
+                            type="submit"
+                            sx={{ mx: 2 }}
+                        >
                             Sign In
                         </Button>
                     </CardActions>
-                </Card>
-            </Box>
-        </>
+                </Form>
+            </Card>
+        </Box>
     );
 }

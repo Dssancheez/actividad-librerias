@@ -86,7 +86,7 @@ export default function Home() {
                     <h3>Bienvenido a la pagina principal</h3>
 
                     <Box sx={{display: 'inline-flex', alignItems: 'center', gap: 2}}>
-                        <span>EXPLORA NUESTROS CURSOS</span>
+                        EXPLORA NUESTROS CURSOS
                         <Button variant="contained" disableElevation>
                             Disable elevation
                         </Button>
